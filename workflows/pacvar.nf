@@ -121,6 +121,8 @@ workflow PACVAR {
                 //phase snp files
 
                 bam_vcf_ch = bam_bai_ch.join(BAM_SNP_VARIANT_CALLING.out.vcf_ch)
+                    .map{ meta, bam, bai, vcf, tbi ->
+                    [meta, bam, bai, vcf, tbi] }
 
                 HIPHASE_SNP(HIPHASE_SNP(bam_vcf_ch,
                     fasta)
