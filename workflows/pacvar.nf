@@ -120,11 +120,11 @@ workflow PACVAR {
             if (!params.skip_phase) {
                 //phase snp files
 
-                bam_vcf_ch = bam_bai_ch.join(BAM_SNP_VARIANT_CALLING.out.vcf_ch)
+                bam_vcf_snp_ch = bam_bai_ch.join(BAM_SNP_VARIANT_CALLING.out.vcf_ch)
                     .map{ meta, bam, bai, vcf, tbi ->
                     [meta, bam, bai, vcf, tbi] }
 
-                HIPHASE_SNP(bam_vcf_ch,
+                HIPHASE_SNP(bam_vcf_snp_ch,
                     fasta)
                 ch_versions = ch_versions.mix(HIPHASE_SNP.out.versions)
             }
@@ -141,13 +141,13 @@ workflow PACVAR {
 
             //phase sv files
 
-            bam_vcf_ch = bam_bai_ch.join(BAM_SNP_VARIANT_CALLING.out.vcf_ch)
+            bam_vcf_sv_ch = bam_bai_ch.join(BAM_SV_VARIANT_CALLING.out.vcf_ch)
                     .map{ meta, bam, bai, vcf, tbi ->
                     [meta, bam, bai, vcf, tbi] }
-                    
+
             if (!params.skip_phase) {
                 
-                HIPHASE_SV(bam_vcf_ch,
+                HIPHASE_SV(bam_vcf_sv_ch,
                     fasta)
                 ch_versions = ch_versions.mix(HIPHASE_SV.out.versions)
             }
