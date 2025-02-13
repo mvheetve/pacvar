@@ -19,14 +19,6 @@ input:
       description: |
         Groovy Map containing sample information
         e.g. `[ id:'sample1', single_end:false ]`
-  - bam:
-      type: file
-      description: Sorted BAM/CRAM/SAM file
-      pattern: "*.{bam}"
-  - bai:
-      type: file
-      description: Index File BAI associated with BAM file
-      pattern: "*.{bai}"
   - vcf:
       type: file
       description: VCF File
@@ -35,11 +27,20 @@ input:
       type: file
       description: CSI File associated with VCF
       pattern: "*.{csi}"
-  - tbi:
-      type: file
-      description: TBI File associated with VCF
-      pattern: "*.{tbi}"
   - meta2:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'sample1', single_end:false ]`      
+  - bam:
+      type: file
+      description: Sorted BAM/CRAM/SAM file
+      pattern: "*.{bam}"
+  - bai:
+      type: file
+      description: Index File BAI associated with BAM file
+      pattern: "*.{bai}"
+  - meta3:
         type: map
         description: |
           Groovy Map containing reference information.
