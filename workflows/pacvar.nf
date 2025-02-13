@@ -119,6 +119,9 @@ workflow PACVAR {
 
             if (!params.skip_phase) {
                 //phase snp files
+
+                bam_vcf_ch = bam_bai_ch.join(BAM_SNP_VARIANT_CALLING.out.vcf_ch)
+
                 HIPHASE_SNP(BAM_SNP_VARIANT_CALLING.out.vcf_ch,
                     bam_bai_ch,
                     fasta)
@@ -137,8 +140,7 @@ workflow PACVAR {
 
             //phase sv files
             if (!params.skip_phase) {
-                HIPHASE_SV(BAM_SV_VARIANT_CALLING.out.vcf_ch,
-                    bam_bai_ch,
+                HIPHASE_SNP(bam_vcf_ch,
                     fasta)
 
                 ch_versions = ch_versions.mix(HIPHASE_SV.out.versions)
