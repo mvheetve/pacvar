@@ -124,7 +124,7 @@ workflow PACVAR {
                     .map{ meta, bam, bai, vcf, tbi ->
                     [meta, bam, bai, vcf, tbi] }
 
-                HIPHASE_SNP(HIPHASE_SNP(bam_vcf_ch,
+                HIPHASE_SNP(bam_vcf_ch,
                     fasta)
                 ch_versions = ch_versions.mix(HIPHASE_SNP.out.versions)
             }
@@ -142,10 +142,8 @@ workflow PACVAR {
             //phase sv files
             if (!params.skip_phase) {
                 
-                HIPHASE_SV(BAM_SV_VARIANT_CALLING.out.vcf_ch,
-                    bam_bai_ch,
+                HIPHASE_SV(bam_vcf_ch,
                     fasta)
-
                 ch_versions = ch_versions.mix(HIPHASE_SV.out.versions)
             }
         }
