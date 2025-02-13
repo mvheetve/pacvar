@@ -140,6 +140,11 @@ workflow PACVAR {
             ch_versions = ch_versions.mix(BAM_SV_VARIANT_CALLING.out.versions)
 
             //phase sv files
+
+            bam_vcf_ch = bam_bai_ch.join(BAM_SNP_VARIANT_CALLING.out.vcf_ch)
+                    .map{ meta, bam, bai, vcf, tbi ->
+                    [meta, bam, bai, vcf, tbi] }
+                    
             if (!params.skip_phase) {
                 
                 HIPHASE_SV(bam_vcf_ch,
