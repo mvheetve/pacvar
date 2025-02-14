@@ -8,7 +8,7 @@ process HIPHASE {
         'biocontainers/hiphase:1.4.5--h9ee0642_0' }"
 
     input:
-    tuple val(meta), path(vcf), path(csi), path(tbi), path(bam), path(bai)
+    tuple val(meta), path(bam), path(bai), path(vcf), path(csi)
     tuple val(meta2), path(fasta)
 
     output:
